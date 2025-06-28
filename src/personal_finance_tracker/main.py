@@ -1,5 +1,6 @@
 from .plaid_client import PlaidClient
 from .data_manager import DataManager
+import pandas as pd
 
 def main():
     plaid_client = PlaidClient()

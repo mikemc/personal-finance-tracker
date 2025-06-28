@@ -8,13 +8,18 @@ from plaid.model.country_code import CountryCode
 from plaid.model.products import Products
 from plaid.configuration import Configuration
 from plaid.api_client import ApiClient
+from plaid import Environment
 from . import config
 from datetime import datetime, timedelta
 
 class PlaidClient:
     def __init__(self):
+        env_map = {
+            'sandbox': Environment.Sandbox,
+            'production': Environment.Production
+        }
         configuration = Configuration(
-            host=getattr(plaid_api.Environment, config.PLAID_ENV, plaid_api.Environment.sandbox),
+            host=env_map.get(config.PLAID_ENV, Environment.Sandbox),
             api_key={
                 'clientId': config.PLAID_CLIENT_ID,
                 'secret': config.PLAID_SECRET,
